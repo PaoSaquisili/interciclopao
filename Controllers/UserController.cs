@@ -48,5 +48,20 @@ namespace ApiInterciclo.Controllers
                 return BadRequest("Error en autentificar");
             }
         }
+        [HttpPost]
+        public async Task<ActionResult> grabarUsuario(User usuario)
+        {
+            try
+            {
+                usuario.id = Guid.NewGuid().ToString();
+                _datacontext.User.Add(usuario);
+                await _datacontext.SaveChangesAsync();
+                return Ok("Se grabo correctamente");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
